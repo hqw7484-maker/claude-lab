@@ -1,0 +1,9 @@
+﻿# 敏感文件
+.env
+*.pem
+*.key
+*.pfx
+*.p12
+*credentials*
+*secret*
+*.htpasswd

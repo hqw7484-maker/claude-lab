@@ -1,0 +1,28 @@
+@echo off
+title Connect to Home
+
+set "CF=%USERPROFILE%\AppData\Local\Microsoft\WinGet\Packages\Cloudflare.cloudflared_Microsoft.Winget.Source_8wekyb3d8bbwe\cloudflared.exe"
+
+echo.
+echo ==========================================
+echo   Connect to Home (YOUR_SUBDOMAIN.ztna.com)
+echo   RDP -> localhost:13389
+echo   Close this window to disconnect.
+echo ==========================================
+echo.
+
+sc.exe query cloudflared 2>NUL | findstr /I "RUNNING" >NUL
+if %ERRORLEVEL% NEQ 0 (
+    echo [!] Tunnel service not running, starting...
+    sc.exe start cloudflared >nul 2>&1
+    timeout /t 3 /nobreak >nul
+)
+echo [OK] Tunnel service is up.
+
+echo [*] Bridging to home...
+echo.
+"%CF%" access tcp --hostname YOUR_SUBDOMAIN.ztna.com --url localhost:13389
+
+echo.
+echo Disconnected.
+pause
