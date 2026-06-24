@@ -1,158 +1,149 @@
-# 🧪 Claude Lab — AI Agent Experimental Framework
+# 🧪 Claude Lab
 
-**"One brain, multiple frameworks, zero lock-in."**
+<h3 align="center">Claude Code + DeepSeek + Gemini + GPT-4o — all in one terminal.</h3>
 
-A portable, model-agnostic AI agent lab for coding, scientific computing, creative work, and visual analysis. Built on Claude Code, powered by DeepSeek.
+<p align="center">
+  <img src="https://img.shields.io/badge/license-MIT-blue" />
+  <img src="https://img.shields.io/badge/python-3.10+-blue" />
+  <img src="https://img.shields.io/badge/platform-Windows%2010%2F11-lightgrey" />
+  <img src="https://img.shields.io/badge/status-active-brightgreen" />
+</p>
 
-## 🎬 Demo
+<p align="center">
+  <b>Portable. Model-agnostic. Research-grade.</b><br/>
+  A personal AI lab that does <i>vision, art, web research, and scientific computing</i> —<br/>
+  without vendor lock-in. One click to install, one command to launch.
+</p>
 
-**AI Art Generation** — one sentence, professional-grade output:
+---
 
-```
-> gen "cyberpunk city at night, neon rain"
+## ⚡ Why This Exists
 
-[*] Starting pipeline (Seed: 15176)...
-    [Attempt] Flux.1 (High-Res) ... ✅ Success! (12.05s)
-💡 Final model: 【Flux.1 (High-Res)】
-```
+> Most AI tools chain you to one vendor. Claude Lab is a **shell** — swap the brain, keep your tools, preserve your context. Free-tier vision. Free-tier art generation. Free to fork.
 
-![AI Generated Art](gallery/art_2.jpg)
+| Typical AI Tool | Claude Lab |
+|---|---|
+| One model, one vendor | **4 models**, hot-swap mid-conversation |
+| Text only | **Vision + Art + Web + Code** |
+| Cloud-locked | Runs on **your machine**, keys stay local |
+| Complex setup | `.\一键安装.ps1` — **one command** |
+| Black box | **You own** the prompts, memory, and pipeline |
 
-**Visual Analysis** — AI sees and understands your images:
+---
 
-```
-> vg gallery/art_2.jpg
+## 🎬 See It In Action
 
-[AI Vision - GPT-4o]:
-This is a cyberpunk-style city nightscape. The street is wet from rain,
-creating vivid neon reflections on the asphalt. Both sides are lined with
-modern buildings covered in bright advertising screens. Streamlined
-futuristic cars are parked along the road. The distant skyline shows dense
-high-rises with countless lights. High-saturation neon lights combined with
-rain puddles create rich light-shadow contrast — cinematic and immersive.
-```
+### 🎨 AI Art: one sentence → professional artwork in 12 seconds
 
-**Web Research** — fetch and analyze any page:
-
-```
-> python tools/fetch.py "https://arxiv.org/abs/2301.11320"
-
-[2301.11320] Cut and Learn for Unsupervised Object Detection
-              and Instance Segmentation
-Authors: Xudong Wang, Rohit Girdhar, Stella X. Yu, Ishan Misra
-Abstract: We propose Cut-and-LEaRn (CutLER), a simple approach for
-training unsupervised object detection and segmentation models...
-```
-
-**Brain Switching** — swap AI models mid-conversation, context preserved:
-
-```
-ds    → DeepSeek V4 Pro (logic & computation core)
-gm    → Gemini 2.0 Flash (vision & long-context analysis)
-gp    → GPT-4o (web research & comprehensive analysis)
+```diff
++ > gen "cyberpunk city at night, neon rain"
+  [*] Starting pipeline (Seed: 15176)...
+-     [Attempt] Turbo     ... timeout
+  [*] Retrying with Flux.1 (High-Res) ...
++     [Attempt] Flux.1    ... ✅ Success! (12.05s)
++ 💡 Final model: 【Flux.1 (High-Res)】
 ```
 
-## Architecture
+<p align="center">
+  <img src="gallery/art_2.jpg" width="512" />
+</p>
+
+### 👁️ Vision: AI reads your images, accurately
+
+```diff
++ > vg gallery/art_2.jpg
+  [AI Vision - GPT-4o]:
+  This is a cyberpunk-style city nightscape. The street is wet from rain,
+  creating vivid neon reflections on the asphalt. High-saturation neon lights
+  combined with rain puddles create rich light-shadow contrast. Streamlined
+  futuristic cars are parked along the road. The distant skyline shows dense
+  high-rises — cinematic and immersive.
+```
+
+### 🧠 Brain Swap: switch models without losing context
+
+```diff
++ ds    → DeepSeek V4 Pro   (logic & computation)
++ gm    → Gemini 2.0 Flash  (vision & long context)
++ gp    → GPT-4o            (web research & analysis)
+```
+
+---
+
+## 🚀 Quick Start
+
+```powershell
+git clone https://github.com/hqw7484-maker/claude-lab.git
+cd claude-lab
+
+cp .env.example .env        # Fill in your API keys
+.\一键安装.ps1               # Auto-install Python + Node.js + deps
+.\start_lab.ps1              # Launch!
+```
+
+> **Note**: `一键安装.ps1` needs Administrator rights (uses winget). If winget is unavailable, install Python & Node.js manually, then run `.\setup.ps1`.
+
+---
+
+## 🔧 Under the Hood
 
 ```
 ┌─ Claude Lab ──────────────────────────────┐
-│  Claude Code ← DeepSeek via Anthropic API │
-│  ├─ v.py (Vision: Gemini + GPT-4o)        │
-│  ├─ generate_art.py (Flux pipeline)        │
-│  ├─ fetch.py (web scraper)                 │
-│  ├─ memory/ (persistent memory system)     │
-│  └─ Modular tools                          │
+│  Claude Code CLI ← DeepSeek (Anthropic)   │
+│  ├─ tools/v.py          Vision gateway    │
+│  ├─ tools/generate_art.py  Flux pipeline  │
+│  ├─ tools/fetch.py      Zero-dep scraper  │
+│  ├─ memory/             Persistent recall │
+│  └─ scripts/            Automation hooks  │
 └────────────────────────────────────────────┘
 ```
 
-## Quick Start
+| Tool | What It Does | Cost |
+|---|---|---|
+| `v <file>` | Gemini vision analysis | **Free** (Google AI Studio) |
+| `vg <file>` | GPT-4o high-precision vision | **Free** (GitHub Models) |
+| `gen "prompt"` | AI art via Flux pipeline | **Free** (Pollinations API) |
+| `fetch.py <url>` | Web scraping (stdlib only) | **Free** |
+| `ds / gm / gp` | Hot-swap AI brain | Requires respective API keys |
 
-```powershell
-# 1. Extract / clone
-cd claude-lab
+---
 
-# 2. Configure API keys
-cp .env.example .env
-# Edit .env with your keys (see below)
-
-# 3. Install
-.\一键安装.ps1      # First time — auto-installs Python, Node.js, deps, Claude Code CLI
-# NOTE: requires Administrator rights. If winget is unavailable,
-# install Python & Node.js manually, then run: .\setup.ps1
-
-# 4. Launch
-.\start_lab.ps1     # Starts Claude Code with DeepSeek
-```
-
-## API Keys (`.env`)
+## 🔑 API Keys (`.env`)
 
 ```env
-ANTHROPIC_AUTH_TOKEN=sk-your-deepseek-key     # DeepSeek API key (paid)
+ANTHROPIC_AUTH_TOKEN=sk-your-deepseek-key
 ANTHROPIC_BASE_URL=https://api.deepseek.com/anthropic
 ANTHROPIC_MODEL=deepseek-v4-pro
-GOOGLE_API_KEY=your-google-key                # For Gemini vision (free tier)
-OPENAI_API_KEY=your-github-token              # For GPT-4o vision via GitHub Models (free)
-DISABLE_TELEMETRY=1
-CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=0
+GOOGLE_API_KEY=your-google-key              # Free tier: aistudio.google.com
+OPENAI_API_KEY=your-github-token            # Free tier: github.com/settings/tokens
 ```
 
-- **DeepSeek**: https://platform.deepseek.com (~$0.14/M input tokens)
-- **Gemini**: https://aistudio.google.com (free tier available)
-- **GitHub Models**: https://github.com/settings/tokens (free GPT-4o access)
+| Service | Signup | Cost |
+|---|---|---|
+| DeepSeek | [platform.deepseek.com](https://platform.deepseek.com) | ~$0.14/M input tokens |
+| Gemini Vision | [aistudio.google.com](https://aistudio.google.com) | Free tier |
+| GPT-4o Vision | [github.com/settings/tokens](https://github.com/settings/tokens) | Free (GitHub Models) |
 
-## Core Capabilities
+---
 
-All commands below are typed **inside the Claude Code chat session**. The AI reads `CLAUDE.md` (the lab handbook) on startup and knows how to handle them.
+## 📦 Requirements
 
-### 👁️ Visual Analysis
-```
-v image.png          # Analyze with Gemini (free)
-vg image.png         # Analyze with GPT-4o (higher precision)
-```
-The AI runs `python tools/v.py <file>` and returns a text description of the image.
+- **Windows 10/11** (PowerShell 5.1+)
+- **Python 3.10+** & **Node.js** (auto-installed by `一键安装.ps1`)
+- **DeepSeek API key** (paid — the only mandatory cost)
 
-### 🎨 AI Art Generation
-```
-gen "cyberpunk city at night, neon rain"
-```
-The AI expands your prompt with professional rendering terms, then runs a tiered pipeline (Flux → Turbo → Standard) via the free Pollinations API. Output: `gallery/art_2.jpg`.
+---
 
-### 🧠 Brain Switching (preserves conversation context)
-```
-ds                   # Switch to DeepSeek V4 Pro (logic core)
-gm                   # Switch to Gemini 2.0 Flash (vision & long context)
-gp                   # Switch to GPT-4o (web research & analysis)
-```
-These use Claude Code's `/config set model` command. You can switch mid-conversation without losing context.
+## 🧬 Philosophy
 
-### 🌐 Web Fetch
-```
-python tools/fetch.py "https://example.com"
-```
-Zero-dependency web scraper (stdlib only). Fetches page text content.
+- **Model agnostic** — Swap the brain, keep the tools. No vendor lock-in.
+- **Self-contained** — One folder, zero system config changes. Uninstall = delete folder.
+- **Free-tier first** — Gemini + GitHub Models for vision. Pollinations for art. Only DeepSeek costs money.
+- **Research-battle-tested** — Used in production computational chemistry (Gaussian/CBS-QB3).
 
-### 🧠 Persistent Memory
-Memory files in `memory/` survive sessions. The AI reads them at startup per `CLAUDE.md` instructions:
-- `MEMORY.md` — index of all memory files
-- `rules.md` — your preferences and learned behaviors
-- `context.md` — what you're working on, what's next
+---
 
-## Requirements
-
-- **Windows 10/11** (scripts use PowerShell; Linux/Mac need manual setup)
-- **Python 3.10+** (auto-installed by `一键安装.ps1` via winget)
-- **Node.js** (auto-installed; needed for `claude` CLI)
-- **DeepSeek API key** (paid, ~$0.14/M input tokens)
-
-If winget is unavailable (e.g., some regions), install Python and Node.js manually, then run `.\setup.ps1`.
-
-## Project Philosophy
-
-- **Model agnostic**: Swap the brain, keep the tools
-- **Self-contained**: Everything in one folder, no system configs
-- **Free-tier friendly**: Gemini + GitHub Models for vision, Pollinations API for art generation
-- **Research-grade**: Used in production for computational chemistry (Gaussian/CBS-QB3)
-
-## License
-
-MIT — use it, fork it, ship it.
+<p align="center">
+  <b>MIT License</b> — use it, fork it, ship it.<br/>
+  <sub>Built with ❤️ for the open-source community</sub>
+</p>
