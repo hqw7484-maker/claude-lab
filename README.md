@@ -1,27 +1,17 @@
-<p align="center">
-  <br/>
-  <samp>🧪</samp>
-</p>
+<div align="center">
 
-<h1 align="center">Claude&nbsp;Lab</h1>
+# 🧪 Claude Lab
 
-<p align="center">
-  <b>One terminal. Four AI brains. Zero lock-in.</b>
-</p>
+**One terminal. Four AI brains. Zero lock-in.**
 
-<p align="center">
-  <img src="https://img.shields.io/badge/license-MIT-blue" />
-  <img src="https://img.shields.io/badge/python-3.10+-blue" />
-  <img src="https://img.shields.io/badge/node-LTS-green" />
-  <img src="https://img.shields.io/badge/windows-10%2F11-lightgrey" />
-</p>
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](#license)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue)](#requirements)
+[![Node LTS](https://img.shields.io/badge/node-LTS-green)](#requirements)
+[![Windows](https://img.shields.io/badge/windows-10%2F11-lightgrey)](#requirements)
 
-<br/>
+*A portable, model-agnostic AI agent lab — vision, art, web, science, all in one folder.*
 
-> A portable, model-agnostic AI agent lab. Vision analysis, AI art generation,
-> web research, scientific computing — all in one folder. Use DeepSeek for logic,
-> Gemini for vision, GPT-4o for research. Swap anytime. One-click install.
-> Keys stay local. MIT open source.
+</div>
 
 ---
 
