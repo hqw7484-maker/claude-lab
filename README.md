@@ -4,6 +4,54 @@
 
 A portable, model-agnostic AI agent lab for coding, scientific computing, creative work, and visual analysis. Built on Claude Code, powered by DeepSeek.
 
+## 🎬 Demo
+
+**AI Art Generation** — one sentence, professional-grade output:
+
+```
+> gen "cyberpunk city at night, neon rain"
+
+[*] Starting pipeline (Seed: 15176)...
+    [Attempt] Flux.1 (High-Res) ... ✅ Success! (12.05s)
+💡 Final model: 【Flux.1 (High-Res)】
+```
+
+![AI Generated Art](gallery/art_2.jpg)
+
+**Visual Analysis** — AI sees and understands your images:
+
+```
+> vg gallery/art_2.jpg
+
+[AI Vision - GPT-4o]:
+This is a cyberpunk-style city nightscape. The street is wet from rain,
+creating vivid neon reflections on the asphalt. Both sides are lined with
+modern buildings covered in bright advertising screens. Streamlined
+futuristic cars are parked along the road. The distant skyline shows dense
+high-rises with countless lights. High-saturation neon lights combined with
+rain puddles create rich light-shadow contrast — cinematic and immersive.
+```
+
+**Web Research** — fetch and analyze any page:
+
+```
+> python tools/fetch.py "https://arxiv.org/abs/2301.11320"
+
+[2301.11320] Cut and Learn for Unsupervised Object Detection
+              and Instance Segmentation
+Authors: Xudong Wang, Rohit Girdhar, Stella X. Yu, Ishan Misra
+Abstract: We propose Cut-and-LEaRn (CutLER), a simple approach for
+training unsupervised object detection and segmentation models...
+```
+
+**Brain Switching** — swap AI models mid-conversation, context preserved:
+
+```
+ds    → DeepSeek V4 Pro (logic & computation core)
+gm    → Gemini 2.0 Flash (vision & long-context analysis)
+gp    → GPT-4o (web research & comprehensive analysis)
+```
+
 ## Architecture
 
 ```

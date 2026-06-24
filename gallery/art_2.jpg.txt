@@ -1,0 +1,4 @@
+Model: Flux.1 (High-Res)
+Prompt: Cyberpunk cityscape at night, neon rain reflections on wet asphalt, PBR materials, cinematic volumetric lighting, Octane Render, 8K, photorealistic
+Seed: 15176
+Time: 12.05s
