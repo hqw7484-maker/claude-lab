@@ -217,33 +217,73 @@ add_title_bar(slide)
 
 add_text_box(slide, 1, 0.3, 11, 0.6, '🏗️ 架构 — 极简，但强大', font_size=36, bold=True, color=WHITE)
 
-add_card(slide, 1.5, 1.3, 10, 5.5)
-arch_text = (
-    '┌─────────────────────────────────────────┐\n'
-    '│          Claude Code CLI                  │\n'
-    '│    ←  DeepSeek V4 Pro (Anthropic API)    │\n'
-    '├─────────────────────────────────────────┤\n'
-    '│                                           │\n'
-    '│  📁 tools/                                │\n'
-    '│   ├─ v.py              视觉网关           │\n'
-    '│   │   Gemini Flash + GPT-4o 双引擎       │\n'
-    '│   │                                       │\n'
-    '│   ├─ generate_art.py   AI 绘画            │\n'
-    '│   │   Flux → Turbo → Standard 流水线     │\n'
-    '│   │                                       │\n'
-    '│   ├─ fetch.py          网页抓取           │\n'
-    '│   │   零依赖 · Python 标准库              │\n'
-    '│   │                                       │\n'
-    '│   └─ plot_sine.py      数据可视化         │\n'
-    '│                                           │\n'
-    '│  🧠 memory/             持久记忆          │\n'
-    '│   ├─ rules.md           用户偏好          │\n'
-    '│   ├─ context.md         会话上下文        │\n'
-    '│   └─ MEMORY.md          记忆索引          │\n'
-    '│                                           │\n'
-    '└─────────────────────────────────────────┘'
-)
-tf = add_text_box(slide, 2.2, 1.6, 8.5, 5, arch_text, font_size=15, color=WHITE, font_name='Consolas')
+# ── Top: Core engine ──
+core_w, core_h = 5.0, 1.4
+core_x = (13.333 - core_w) / 2
+core_y = 1.3
+
+# Glow effect (larger semi-transparent rect behind)
+glow = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(core_x - 0.1), Inches(core_y - 0.1), Inches(core_w + 0.2), Inches(core_h + 0.2))
+glow.fill.solid(); glow.fill.fore_color.rgb = RGBColor(0x1A, 0x3A, 0x5C); glow.line.fill.background()
+
+core = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(core_x), Inches(core_y), Inches(core_w), Inches(core_h))
+core.fill.solid(); core.fill.fore_color.rgb = BG_CARD
+core.line.color.rgb = ACCENT; core.line.width = Pt(1.5)
+
+tf = core.text_frame; tf.word_wrap = True
+p = tf.paragraphs[0]; p.text = 'Claude Code CLI'; p.font.size = Pt(26); p.font.bold = True; p.font.color.rgb = WHITE; p.font.name = 'Microsoft YaHei'; p.alignment = PP_ALIGN.CENTER
+p2 = tf.add_paragraph(); p2.text = 'DeepSeek V4 Pro  (Anthropic API 协议)'; p2.font.size = Pt(14); p2.font.color.rgb = ACCENT; p2.font.name = 'Microsoft YaHei'; p2.alignment = PP_ALIGN.CENTER
+
+# ── Arrow: core → tools ──
+arrow1 = slide.shapes.add_shape(MSO_SHAPE.DOWN_ARROW, Inches(13.333/2 - 0.15), Inches(core_y + core_h + 0.1), Inches(0.3), Inches(0.5))
+arrow1.fill.solid(); arrow1.fill.fore_color.rgb = ACCENT; arrow1.line.fill.background()
+
+# ── Middle: 4 tool boxes ──
+tools = [
+    ('👁️  v.py', '视觉网关', 'Gemini + GPT-4o\n双引擎驱动', ACCENT),
+    ('🎨  generate_art.py', 'AI 绘画', 'Flux → Turbo\n→ Standard 流水线', ACCENT2),
+    ('🌐  fetch.py', '网页抓取', '零依赖\nPython 标准库', ACCENT3),
+    ('📊  plot_sine.py', '数据可视化', 'Matplotlib\n图表生成', RGBColor(0xA8, 0x55, 0xF7)),
+]
+
+tool_y = 3.4
+tool_w, tool_h = 2.7, 1.8
+gap = 0.35
+start_x = (13.333 - (tool_w * 4 + gap * 3)) / 2
+
+for i, (name, title, desc, accent) in enumerate(tools):
+    tx = start_x + i * (tool_w + gap)
+    card = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(tx), Inches(tool_y), Inches(tool_w), Inches(tool_h))
+    card.fill.solid(); card.fill.fore_color.rgb = BG_CARD
+    card.line.color.rgb = accent; card.line.width = Pt(1)
+
+    # Accent top bar
+    bar = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(tx), Inches(tool_y), Inches(tool_w), Inches(0.05))
+    bar.fill.solid(); bar.fill.fore_color.rgb = accent; bar.line.fill.background()
+
+    tf = card.text_frame; tf.word_wrap = True
+    p = tf.paragraphs[0]; p.text = name; p.font.size = Pt(16); p.font.bold = True; p.font.color.rgb = accent; p.font.name = 'Consolas'; p.alignment = PP_ALIGN.CENTER
+    p2 = tf.add_paragraph(); p2.text = desc; p2.font.size = Pt(12); p2.font.color.rgb = GRAY; p2.font.name = 'Microsoft YaHei'; p2.alignment = PP_ALIGN.CENTER
+
+# ── Arrow: tools → memory ──
+arrow2 = slide.shapes.add_shape(MSO_SHAPE.DOWN_ARROW, Inches(13.333/2 - 0.15), Inches(tool_y + tool_h + 0.1), Inches(0.3), Inches(0.4))
+arrow2.fill.solid(); arrow2.fill.fore_color.rgb = ACCENT2; arrow2.line.fill.background()
+
+# ── Bottom: Memory ──
+mem_w, mem_h = 7.0, 1.0
+mem_x = (13.333 - mem_w) / 2
+mem_y = tool_y + tool_h + 0.7
+
+mem = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(mem_x), Inches(mem_y), Inches(mem_w), Inches(mem_h))
+mem.fill.solid(); mem.fill.fore_color.rgb = BG_CARD
+mem.line.color.rgb = ACCENT2; mem.line.width = Pt(1)
+
+tf = mem.text_frame; tf.word_wrap = True
+p = tf.paragraphs[0]; p.text = '🧠  memory/  —  持久记忆系统'; p.font.size = Pt(18); p.font.bold = True; p.font.color.rgb = WHITE; p.font.name = 'Microsoft YaHei'; p.alignment = PP_ALIGN.CENTER
+p2 = tf.add_paragraph(); p2.text = 'rules.md (偏好)  ·  context.md (会话)  ·  MEMORY.md (索引)  —  关了重开，什么都记得'; p2.font.size = Pt(13); p2.font.color.rgb = GRAY; p2.font.name = 'Microsoft YaHei'; p2.alignment = PP_ALIGN.CENTER
+
+# ── Annotation: cost badges ──
+add_text_box(slide, 0.8, 6.8, 12, 0.4, '🆓 全部免费    💰 仅 DeepSeek 付费（≈1元/月）', font_size=14, color=GRAY, alignment=PP_ALIGN.CENTER)
 
 # ═══════════════════════════════════════
 # SLIDE 8: QUICK START
